@@ -41,7 +41,7 @@ public class PlayerMoveset : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(animator.GetInteger("Move"));
+            //Debug.Log(animator.GetInteger("Move"));
             animator.SetInteger("Move", (int)PlayerStates.RIGHTSLASH);
         }
     }
