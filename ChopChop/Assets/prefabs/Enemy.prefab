@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2742204102888031915}
   - component: {fileID: 254970396166132674}
   - component: {fileID: 2865317661895428790}
-  - component: {fileID: 3466403010270663150}
+  - component: {fileID: 6237318084795059298}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -95,7 +95,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3466403010270663150
+--- !u!114 &6237318084795059298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,4 +110,4 @@ MonoBehaviour:
   totalTime: 5
   health: 50
   enemyDamage: 10
-  curState: 0
+  curState: 7

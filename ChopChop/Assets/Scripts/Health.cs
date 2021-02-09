@@ -23,20 +23,33 @@ public class Health : MonoBehaviour
         if (other.tag == "weapon")
         {
             string characterTag = other.transform.parent.parent.tag;
+            int move = other.GetComponent<Animator>().GetInteger("Move");
+            
+            string thisTag = this.transform.parent.tag;
             int damage = 0;
-            if (characterTag == "Enemy")
+            if (characterTag == "Enemy" && thisTag != "Enemy" && IsSlashMove(move))
             {
                 damage = 5;
-            }else if(characterTag == "Player")
+            }
+            else if (characterTag == "Player" && thisTag != "Player")
             {
                 damage = 5;
             }
             characterHealth -= damage;
-            Debug.Log(characterHealth);
+            Debug.Log(thisTag + " Health: " + characterHealth);
             if (characterHealth < 1)
             {
                 Destroy(this.transform.parent.gameObject);
+                if(thisTag == "Enemy")
+                {
+                    this.transform.parent.parent.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
+                }
             }
         }
+    }
+
+    private bool IsSlashMove(int move)
+    {
+        return move == 4 || move == 5 || move == 6;
     }
 }

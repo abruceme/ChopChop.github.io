@@ -62,7 +62,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if(spawnActive)
         {
-            timeBetweenNextSpawn -= Time.deltaTime;
+            //timeBetweenNextSpawn -= Time.deltaTime;
             if (timeBetweenNextSpawn <= 0)
             {
                 Spawn();
@@ -98,6 +98,10 @@ public class EnemySpawner : MonoBehaviour
         {
             Debug.Log("Spawn ended");
         }
+    }
+    public void ResetTimeBetweenNextSpawn()
+    {
+        timeBetweenNextSpawn = 0;
     }
     [Serializable]
     public struct SpawnPath
