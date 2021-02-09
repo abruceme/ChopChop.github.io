@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class WeaponCollision : MonoBehaviour
 {
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -22,14 +23,20 @@ public class WeaponCollision : MonoBehaviour
         {
 
             int currentMove = collision.collider.gameObject.GetComponent<Animator>().GetInteger("Move");
-            if (currentMove > 2)
+            if (IsSlashMove(currentMove))
             {
                 Debug.Log("Move Integer: " + currentMove);
-                Animator animator = gameObject.GetComponent<Animator>();
-                animator.SetInteger("Move", animator.GetInteger("Move") - 3);
+                ReturnToHold();
             }
         }
     }
-
+    void ReturnToHold()
+    {
+        animator.SetInteger("Move", animator.GetInteger("Move") - 3);
+    }
+    private bool IsSlashMove(int move)
+    {
+        return move == 4 || move == 5 || move == 6;
+    }
 
 }
