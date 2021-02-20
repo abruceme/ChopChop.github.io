@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         PARRYREACTION,
         RUNNING
     }
-    private const float minimumHeldDuration = 0.25f;
+    private const float minimumHeldDuration = 0.2f;
     private float keyPressedTime = 0;
     private bool keyHeld = false;
     private KeyCode keyPressed = KeyCode.None;
