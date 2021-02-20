@@ -7,11 +7,11 @@ WEAPONLESS MOVE STATES
 4- left punch: 0,1
 5- up punch: 0,2
 6- right punch: 0,3
-7- left block/parry: 0,4,5,6,8,9
-8- up block/parry: 0,4,5,6,,7,9
-9- right block/parry: 0,4,5,6,7,8
+7- left block/parry: 0,4,5,6,8,9,10
+8- up block/parry: 0,4,5,6,7,9,10
+9- right block/parry: 0,4,5,6,7,8,10
 WEAPON MOVE STATES
-10- weapon idle: 14,15,16,17,18,19,21
+10- weapon idle: 10,14,15,16,17,18,19,21
 11- left slash hold: 0,10,14,15,16
 12- up slach hold: 0,10,14,15,16
 13- right slash hold: 0,10,14,15,16
