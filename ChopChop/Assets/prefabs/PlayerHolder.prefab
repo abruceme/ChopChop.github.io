@@ -103,6 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 236237254490165783}
   - component: {fileID: 2044333484081248690}
+  - component: {fileID: 1248507344638718284}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -137,7 +138,7 @@ Animator:
   m_GameObject: {fileID: 580005735063734445}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3a127d7f19c81ad4e9992620c2ad7370, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2f75d3f979c0fc44db6cfeaa09504af9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -146,6 +147,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1248507344638718284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580005735063734445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5600b70d22551e418d307386d3cbddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeapon: 0
 --- !u!1 &766631238967286921
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +268,7 @@ GameObject:
   - component: {fileID: 649951375277183894}
   - component: {fileID: 995046375246396711}
   m_Layer: 8
-  m_Name: mace_1h
+  m_Name: mace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -707,7 +721,7 @@ GameObject:
   - component: {fileID: 158187731095008691}
   m_Layer: 8
   m_Name: WeaponHolder
-  m_TagString: Untagged
+  m_TagString: weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1175,7 +1189,7 @@ GameObject:
   - component: {fileID: 1095739602282491844}
   - component: {fileID: 6609434566796584792}
   m_Layer: 8
-  m_Name: axe_2h
+  m_Name: axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1900,7 +1914,7 @@ GameObject:
   - component: {fileID: 6760400193558298792}
   - component: {fileID: 477082832276518750}
   m_Layer: 8
-  m_Name: sword_2h
+  m_Name: sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
