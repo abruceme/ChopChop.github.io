@@ -4,17 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum EnemyStates
-{
-    IDLE,
-    LEFTHOLD,
-    UPHOLD,
-    RIGHTHOLD,
-    LEFTSLASH,
-    UPSLASH,
-    RIGHTSLASH,
-    MOVING
-}
 public class EnemyAI : MonoBehaviour
 {
     public float totalTime = 5f;
@@ -23,19 +12,24 @@ public class EnemyAI : MonoBehaviour
     public int health;
 
     public int enemyDamage;
-    public EnemyStates curState = EnemyStates.MOVING;
+    
+    public EnemyController enemy;
 
     private float moveTime = 0f;
-    private Animator animator;
+    
 
 
     void Start()
     {
-        animator = this.GetComponentInChildren<Animator>();
+        enemy.SetWeapon();
+        if(enemy.curState == EnemyController.EnemyStates.RUNNING)
+        {
+            enemy.Run();
+        }
     }
     void Update()
     {
-        if (curState != EnemyStates.MOVING)
+        if (enemy.curState != EnemyController.EnemyStates.RUNNING)
         {
             moveTime -= Time.deltaTime;
             if (moveTime <= 0)
@@ -49,36 +43,45 @@ public class EnemyAI : MonoBehaviour
     public void ResetMoveTimer()
     {
         //Reset time for next move between 1 to 3s
-        moveTime = Random.Range(0.75f, 1f);
-        if ((int)curState > 3 || curState == EnemyStates.IDLE)
-        {
-            curState = (EnemyStates)Random.Range(0, 3);
-        }
-        else if ((int) curState < 4 && curState != EnemyStates.IDLE)
-        {
-            curState = (EnemyStates)((int)curState + 3);
-        }
+        moveTime = 7;//Random.Range(1f, 1.5f);
+        enemy.curState = (EnemyController.EnemyStates)Random.Range(0, 6);
         Debug.Log($"{this.gameObject.name}'s next Move in {moveTime}s");
     }
 
     public void PerformMove()
     {
-        switch (curState)
+        switch (enemy.curState)
         {
-            case EnemyStates.IDLE:
-                animator.SetInteger("Move", (int)curState);
+            case EnemyController.EnemyStates.IDLE:
+                enemy.Idle();
                 break;
-            case EnemyStates.MOVING:
+            case EnemyController.EnemyStates.LEFTATTACK:
+                enemy.LeftAttack();
+                break;
+            case EnemyController.EnemyStates.RIGHTATTACK:
+                enemy.RightAttack();
+                break;
+            case EnemyController.EnemyStates.UPATTACK:
+                enemy.UpAttack();
+                break;
+            case EnemyController.EnemyStates.LEFTDEFEND:
+                enemy.LeftBlock();
+                break;
+            case EnemyController.EnemyStates.UPDEFEND:
+                enemy.UpBlock();
+                break;
+            case EnemyController.EnemyStates.RIGHTDEFEND:
+                enemy.RightBlock();
                 break;
             default:
-                Attack();
                 break;
         }
+        Debug.Log($"{gameObject.name} "+enemy.curState.ToString());
         ResetMoveTimer();
     }
     public void Spawn(Vector3 startPosition, Vector3 endPosition)
     {
-        curState = EnemyStates.MOVING;
+        enemy.curState = EnemyController.EnemyStates.RUNNING;
         StartCoroutine(MoveTowards(startPosition, endPosition));
     }
 
@@ -95,6 +98,7 @@ public class EnemyAI : MonoBehaviour
         transform.position = endPosition;
 
         Debug.Log($"{gameObject.name} Active!");
+        enemy.Idle();
         ResetMoveTimer();
     }
 
@@ -102,7 +106,6 @@ public class EnemyAI : MonoBehaviour
     {
         //Debug.Log($"{gameObject.name} Attacks with {enemyDamage}");
         //TO DO Write Attack logic
-        animator.SetInteger("Move", (int)curState);
     }
 
     void Defend()
@@ -113,7 +116,7 @@ public class EnemyAI : MonoBehaviour
 
     void Damage(int damage)
     {
-        if (curState == EnemyStates.MOVING)
+        if (enemy.curState == EnemyController.EnemyStates.RUNNING)
             return;
         health -= damage;
         if (health <= 0)
@@ -122,6 +125,4 @@ public class EnemyAI : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
-
 }

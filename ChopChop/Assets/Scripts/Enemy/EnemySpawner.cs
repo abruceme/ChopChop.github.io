@@ -15,6 +15,9 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField]
     private EnemyAI enemyPrefab;
+
+    [SerializeField]
+    private Transform player;
     // Start is called before the first frame update
     int curSpawnIndex = 0;
 
@@ -83,10 +86,12 @@ public class EnemySpawner : MonoBehaviour
         int pathIndex = spawnPositionIndex[curSpawnIndex];
         Debug.Log($"Spawn  enemy in position {pathIndex}");
         SpawnPath spawnPath = paths[pathIndex];
-        EnemyAI enemy = Instantiate(enemyPrefab, spawnPath.startPosition.position, Quaternion.identity);
-        enemy.transform.SetParent(this.transform);
-        enemy.gameObject.name = "Enemy " + curSpawnIndex;
-        enemy.Spawn(spawnPath.startPosition.position, spawnPath.endPosition.position);
+        EnemyAI ai = Instantiate(enemyPrefab, spawnPath.startPosition.position, Quaternion.identity);
+        ai.transform.SetParent(this.transform);
+        ai.transform.LookAt(player);
+        ai.gameObject.name = "Enemy " + curSpawnIndex;
+        ai.enemy.curState = EnemyController.EnemyStates.RUNNING;
+        ai.Spawn(spawnPath.startPosition.position, spawnPath.endPosition.position);
         curSpawnIndex += 1;
         spawnActive = false;
 
