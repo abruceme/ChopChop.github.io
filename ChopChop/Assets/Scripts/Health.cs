@@ -10,6 +10,8 @@ public class Health : MonoBehaviour
     private Transform gameCharacter;
     [SerializeField]
     private HealthBar healthBar;
+    [SerializeField]
+    private GameObject damageParticle;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +29,11 @@ public class Health : MonoBehaviour
         healthBar.SetHealth(characterHealth);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.tag == "weapon")
+        if (other.gameObject.tag == "weapon")
         {
-            WeaponCollision opponentWeapon = other.GetComponent<WeaponCollision>();
+            WeaponCollision opponentWeapon = other.gameObject.GetComponent<WeaponCollision>();
             Animator opponentAnimator = opponentWeapon.defenderAnimator;
             string opponentTag = opponentAnimator.gameObject.tag;
             string characterTag = gameCharacter.tag;
@@ -40,6 +42,7 @@ public class Health : MonoBehaviour
                 && IsAttack(move)
                 && WeaponColliderMatch(opponentWeapon,move))
             {
+                Instantiate(damageParticle, other.contacts[0].point, Quaternion.identity);
                 TakeDamage(opponentWeapon.weaponDamage);
                 Debug.Log(characterTag + " Health: " + characterHealth);
                 if (opponentTag == "Player")
