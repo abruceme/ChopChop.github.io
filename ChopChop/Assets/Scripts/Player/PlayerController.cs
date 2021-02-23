@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerController : GameCharacterController
 {
-    
-    
+
+
     private const float minimumHeldDuration = 0.2f;
     private float keyPressedTime = 0;
     private bool keyHeld = false;
     private KeyCode keyPressed = KeyCode.None;
-    
-    
+    private bool canBlock = true;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,23 +83,26 @@ public class PlayerController : GameCharacterController
         }
 
     }
-    
+
     private void Block()
     {
-        switch (keyPressed)
+        if (canBlock)
         {
-            case KeyCode.A:
-                Debug.Log("A held down");
-                LeftBlock();
-                break;
-            case KeyCode.W:
-                Debug.Log("W held down");
-                UpBlock();
-                break;
-            case KeyCode.D:
-                Debug.Log("D held down");
-                RightBlock();
-                break;
+            switch (keyPressed)
+            {
+                case KeyCode.A:
+                    Debug.Log("A held down");
+                    LeftBlock();
+                    break;
+                case KeyCode.W:
+                    Debug.Log("W held down");
+                    UpBlock();
+                    break;
+                case KeyCode.D:
+                    Debug.Log("D held down");
+                    RightBlock();
+                    break;
+            }
         }
     }
     private void Attack()
@@ -134,6 +138,18 @@ public class PlayerController : GameCharacterController
             return KeyCode.D;
         }
         return KeyCode.None;
+    }
+    public bool CanBlock()
+    {
+        return canBlock;
+    }
+    public void DisableBlock()
+    {
+        canBlock = false;
+    }
+    public void EnableBlock()
+    {
+        canBlock = true;
     }
 
 }

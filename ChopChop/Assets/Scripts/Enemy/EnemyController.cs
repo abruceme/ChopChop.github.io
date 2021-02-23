@@ -16,4 +16,8 @@ public class EnemyController : GameCharacterController
         RUNNING
     }
     public EnemyStates curState = EnemyStates.RUNNING;
+    public void PerformMove()
+    {
+        gameObject.GetComponentInParent<EnemyAI>().PerformMove();
+    }
 }

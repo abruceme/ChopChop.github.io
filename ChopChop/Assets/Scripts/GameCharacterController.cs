@@ -19,7 +19,7 @@ public class GameCharacterController : MonoBehaviour
     {
         WEAPONLESSIDLE,
         LEFTPUNCHHOLD,
-        UPPUCHHOLD,
+        UPPUNCHHOLD,
         RIGHTPUNCHHOLD,
         LEFTPUNCH,
         UPPUNCH,
@@ -52,6 +52,7 @@ public class GameCharacterController : MonoBehaviour
         {
             animator.SetInteger("Move", (int)CharacterStates.WEAPONIDLE);
         }
+        Debug.Log(tag + " idle");
     }
     public void LeftAttack()
     {
@@ -125,45 +126,69 @@ public class GameCharacterController : MonoBehaviour
     }
     public bool Blocking()
     {
-        if (animator.GetInteger("Move") == (int)CharacterStates.LEFTPARRY
+        return animator.GetInteger("Move") == (int)CharacterStates.LEFTPARRY
         || animator.GetInteger("Move") == (int)CharacterStates.UPPARRY
         || animator.GetInteger("Move") == (int)CharacterStates.RIGHTPARRY
         || animator.GetInteger("Move") == (int)CharacterStates.LEFTBLOCK
         || animator.GetInteger("Move") == (int)CharacterStates.UPBLOCK
-        || animator.GetInteger("Move") == (int)CharacterStates.RIGHTBLOCK)
-        {
-            return true;
-        }
-        return false;
+        || animator.GetInteger("Move") == (int)CharacterStates.RIGHTBLOCK;
 
     }
     public bool Chilling()
     {
-        if (animator.GetInteger("Move") == (int)CharacterStates.WEAPONLESSIDLE
-        || animator.GetInteger("Move") == (int)CharacterStates.WEAPONIDLE)
-        {
-            return true;
-        }
-        return false;
+        return animator.GetInteger("Move") == (int)CharacterStates.WEAPONLESSIDLE
+        || animator.GetInteger("Move") == (int)CharacterStates.WEAPONIDLE;
+    }
+    public bool Attacking()
+    {
+        return animator.GetInteger("Move") == (int)CharacterStates.LEFTPUNCH
+        || animator.GetInteger("Move") == (int)CharacterStates.UPPUNCH
+        || animator.GetInteger("Move") == (int)CharacterStates.RIGHTPUNCH
+        || animator.GetInteger("Move") == (int)CharacterStates.LEFTSLASH
+        || animator.GetInteger("Move") == (int)CharacterStates.UPSLASH
+        || animator.GetInteger("Move") == (int)CharacterStates.RIGHTSLASH;
+    }
+    public bool Reacting()
+    {
+        return animator.GetInteger("Move") == (int)CharacterStates.LEFTPUNCHHOLD
+        || animator.GetInteger("Move") == (int)CharacterStates.UPPUNCHHOLD
+        || animator.GetInteger("Move") == (int)CharacterStates.RIGHTPUNCHHOLD
+        || animator.GetInteger("Move") == (int)CharacterStates.LEFTSLASHHOLD
+        || animator.GetInteger("Move") == (int)CharacterStates.UPSLASHHOLD
+        || animator.GetInteger("Move") == (int)CharacterStates.RIGHTSLASHHOLD
+        || animator.GetInteger("Move") == (int)CharacterStates.PARRYREACTION;
     }
     public void SetWeapon()
     {
         DeactivateAllWeapons();
         int nextMove = (int)CharacterStates.WEAPONLESSIDLE;
+        GameObject weaponObject = null;
+        int weaponHealth = 0;
+        int weaponDamage = 0;
         switch (currentWeapon)
         {
             case WeaponStates.SWORD:
-                weapon.Find("sword").gameObject.SetActive(true);
-                nextMove = (int)CharacterStates.WEAPONIDLE;
+                weaponObject = weapon.Find("sword").gameObject;
+                weaponHealth = (int)WeaponCollision.WeaponHealth.SWORD;
+                weaponDamage = (int)WeaponCollision.WeaponDamage.SWORD;
                 break;
             case WeaponStates.AXE:
-                weapon.Find("axe").gameObject.SetActive(true);
-                nextMove = (int)CharacterStates.WEAPONIDLE;
+                weaponObject = weapon.Find("axe").gameObject;
+                weaponHealth = (int)WeaponCollision.WeaponHealth.AXE;
+                weaponDamage = (int)WeaponCollision.WeaponDamage.AXE;
                 break;
             case WeaponStates.MACE:
-                weapon.Find("mace").gameObject.SetActive(true);
-                nextMove = (int)CharacterStates.WEAPONIDLE;
+                weaponObject = weapon.Find("mace").gameObject;
+                weaponHealth = (int)WeaponCollision.WeaponHealth.AXE;
+                weaponDamage = (int)WeaponCollision.WeaponDamage.AXE;
                 break;
+        }
+        if (weaponObject != null)
+        {
+            weaponObject.SetActive(true);
+            weaponObject.GetComponent<WeaponCollision>().weaponHealth = weaponHealth;
+            weaponObject.GetComponent<WeaponCollision>().weaponDamage = weaponDamage;
+            nextMove = (int)CharacterStates.WEAPONIDLE;
         }
         animator.SetInteger("Move", nextMove);
     }

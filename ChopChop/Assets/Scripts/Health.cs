@@ -6,50 +6,88 @@ public class Health : MonoBehaviour
 {
     [SerializeField]
     private int characterHealth;
+    [SerializeField]
+    private Transform gameCharacter;
+    [SerializeField]
+    private HealthBar healthBar;
     // Start is called before the first frame update
     void Start()
     {
-
+        healthBar.SetMaxHealth(characterHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
 
+    void TakeDamage(int damage)
+    {
+        characterHealth -= damage;
+        healthBar.SetHealth(characterHealth);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "weapon")
         {
-            string characterTag = other.transform.parent.parent.tag;
-            int move = other.GetComponent<Animator>().GetInteger("Move");
-            
-            string thisTag = this.transform.parent.tag;
-            int damage = 0;
-            if (characterTag == "Enemy" && thisTag != "Enemy" && IsSlashMove(move))
+            WeaponCollision opponentWeapon = other.GetComponent<WeaponCollision>();
+            Animator opponentAnimator = opponentWeapon.defenderAnimator;
+            string opponentTag = opponentAnimator.gameObject.tag;
+            string characterTag = gameCharacter.tag;
+            int move = opponentAnimator.GetInteger("Move");
+            if (characterTag != opponentTag
+                && IsAttack(move)
+                && WeaponColliderMatch(opponentWeapon,move))
             {
-                damage = 5;
+                TakeDamage(opponentWeapon.weaponDamage);
+                Debug.Log(characterTag + " Health: " + characterHealth);
+                if (opponentTag == "Player")
+                {
+                    opponentWeapon.DamageWeapon();
+                }
             }
-            else if (characterTag == "Player" && thisTag != "Player")
-            {
-                damage = 5;
-            }
-            characterHealth -= damage;
-            Debug.Log(thisTag + " Health: " + characterHealth);
             if (characterHealth < 1)
             {
-                Destroy(this.transform.parent.gameObject);
-                if(thisTag == "Enemy")
+                
+                if (characterTag == "Enemy")
                 {
-                    this.transform.parent.parent.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
+                    Destroy(gameCharacter.parent.gameObject);
+                    gameCharacter.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
                 }
+                if(characterTag == "Player")
+                {
+                    Time.timeScale = 0f;
+                    GameObject.Find("PauseButton").SetActive(false);
+                    GameObject.Find("Canvas").transform.Find("Restart").gameObject.SetActive(true);
+                }
+                Debug.Log(characterTag + " died :(");
             }
         }
     }
 
-    private bool IsSlashMove(int move)
+    private bool IsAttack(int move)
     {
-        return move == 4 || move == 5 || move == 6;
+        return IsSlash(move) || IsPunch(move);
+    }
+    private bool IsSlash(int move)
+    {
+        return move == (int)GameCharacterController.CharacterStates.LEFTSLASH
+            || move == (int)GameCharacterController.CharacterStates.RIGHTSLASH
+            || move == (int)GameCharacterController.CharacterStates.UPSLASH;
+    }
+    private bool IsPunch(int move)
+    {
+        return move == (int)GameCharacterController.CharacterStates.LEFTPUNCH
+            || move == (int)GameCharacterController.CharacterStates.RIGHTPUNCH
+            || move == (int)GameCharacterController.CharacterStates.UPPUNCH;
+    }
+    
+    private bool WeaponColliderMatch(WeaponCollision weapon, int move)
+    {
+        return (weapon.IsWeapon()
+            &&IsSlash(move))
+            ||(!weapon.IsWeapon()
+            &&IsPunch(move));
     }
 }
