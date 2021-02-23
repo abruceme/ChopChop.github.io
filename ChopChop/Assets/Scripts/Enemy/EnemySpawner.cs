@@ -91,6 +91,7 @@ public class EnemySpawner : MonoBehaviour
         ai.transform.LookAt(player);
         ai.gameObject.name = "Enemy " + curSpawnIndex;
         ai.enemy.curState = EnemyController.EnemyStates.RUNNING;
+        ai.enemy.currentWeapon = (GameCharacterController.WeaponStates)UnityEngine.Random.Range(1, 4);
         ai.Spawn(spawnPath.startPosition.position, spawnPath.endPosition.position);
         curSpawnIndex += 1;
         spawnActive = false;

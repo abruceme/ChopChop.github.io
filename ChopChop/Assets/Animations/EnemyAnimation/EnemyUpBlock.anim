@@ -41509,7 +41509,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.3
-    functionName: Idle
+    functionName: PerformMove
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
