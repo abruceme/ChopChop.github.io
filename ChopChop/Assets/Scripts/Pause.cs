@@ -33,8 +33,8 @@ public class Pause : MonoBehaviour
         paused = false;
 
     }
-    public void Restart()
+    public void MainMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("StartScene");
     }
 }
