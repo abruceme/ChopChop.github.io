@@ -2892,11 +2892,6 @@ PrefabInstance:
       propertyPath: defenderAnimator
       value: 
       objectReference: {fileID: 2044333484081248690}
-    - target: {fileID: 7180297096842254210, guid: 4367030e4cd46294ab20ea69d654d1d8,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7869448454973663157, guid: 4367030e4cd46294ab20ea69d654d1d8,
         type: 3}
       propertyPath: m_Name
@@ -2977,11 +2972,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 158187731095008691}
     m_Modifications:
-    - target: {fileID: 1422602098705444436, guid: b3d4ee2bc49e03442a57cfdcb4133751,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8514824203114061475, guid: b3d4ee2bc49e03442a57cfdcb4133751,
         type: 3}
       propertyPath: m_Name

@@ -31,8 +31,6 @@ public class Health : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if(gameCharacter.tag != "Player")
-        Debug.Log("This happened" + other.gameObject.name + " " + this.gameObject.name);
         if (other.gameObject.tag == "weapon")
         {
             WeaponCollision opponentWeapon = other.gameObject.GetComponent<WeaponCollision>();
