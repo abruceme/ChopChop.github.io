@@ -4859,7 +4859,7 @@ GameObject:
   - component: {fileID: 8733356556053587145}
   m_Layer: 0
   m_Name: mace 1
-  m_TagString: Untagged
+  m_TagString: weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4873,7 +4873,7 @@ Transform:
   m_GameObject: {fileID: 8514824203114061475}
   m_LocalRotation: {x: 0.3545806, y: -0.5290275, z: -0.58462095, w: 0.5026139}
   m_LocalPosition: {x: 0.086, y: -0.047, z: 0.007}
-  m_LocalScale: {x: 1, y: 1.25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4145748380380882464}
   m_Father: {fileID: 0}
