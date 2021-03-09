@@ -58,8 +58,8 @@ public class Health : MonoBehaviour
                 {
                     Destroy(gameCharacter.parent.gameObject);
                     gameCharacter.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
-                    AnalyticsResult analyticsResult = Analytics.CustomEvent("Destroy");
-                    Debug.Log("analyticsResult: " + analyticsResult)
+                    AnalyticsResult result = AnalyticsEvent.Custom("Destroy", null);
+                    Debug.Log(result);
                 }
                 if(characterTag == "Player")
                 {
