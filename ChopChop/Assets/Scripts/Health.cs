@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics
+using UnityEngine.Analytics;
 
 public class Health : MonoBehaviour
 {
@@ -59,7 +59,7 @@ public class Health : MonoBehaviour
                     Destroy(gameCharacter.parent.gameObject);
                     gameCharacter.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
                     AnalyticsResult analyticsResult = Analytics.CustomEvent("Destroy");
-                    Debug.Log("analyticsResult: " + analyticsResult)
+                    Debug.Log("analyticsResult: " + analyticsResult);
                 }
                 if(characterTag == "Player")
                 {
