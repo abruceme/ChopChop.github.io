@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
+
 
 public class WeaponCollision : MonoBehaviour
 {
+    
     public Animator defenderAnimator;
     public int weaponHealth;
     public int weaponDamage;
+    private ChopChopAnalytics chopAnalytics;
     public enum WeaponDamage
+
     {
         SWORD = 30,
         AXE = 40,
@@ -22,6 +27,7 @@ public class WeaponCollision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        chopAnalytics = GameObject.Find("ChopChopAnalytics").GetComponent<ChopChopAnalytics>();
     }
 
     // Update is called once per frame
@@ -42,6 +48,7 @@ public class WeaponCollision : MonoBehaviour
             {
                 Debug.Log(defenderCharacter + " parry! Move: " + attackerMove);
                 Parry(attackerAnimator.gameObject.GetComponent<EnemyController>());
+                //steal analytics here
             }
             else if (((defenderCharacter == "Enemy"
                 && (IsBlockMove(defenderMove) || IsParryMove(defenderMove))
@@ -56,6 +63,8 @@ public class WeaponCollision : MonoBehaviour
                     && IsBlockMove(defenderMove))
                 {
                     DamageWeapon();
+                    chopAnalytics.IncrementBlockSuccess();
+
                 }
                 if (defenderCharacter == "Enemy"
                     && IsSlashMove(attackerMove))

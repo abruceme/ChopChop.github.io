@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
+
 
 public class PlayerController : GameCharacterController
 {
@@ -11,12 +13,16 @@ public class PlayerController : GameCharacterController
     private bool keyHeld = false;
     private KeyCode keyPressed = KeyCode.None;
     private bool canBlock = true;
+    
+    private ChopChopAnalytics chopAnalytics;
 
 
     // Start is called before the first frame update
     void Start()
     {
         SetWeapon();
+        chopAnalytics = GameObject.Find("ChopChopAnalytics").GetComponent<ChopChopAnalytics>();
+
     }
 
     // Update is called once per frame
@@ -67,6 +73,7 @@ public class PlayerController : GameCharacterController
             else
             {
                 Attack();
+                
             }
             keyPressed = SetKey();
         }
@@ -112,14 +119,17 @@ public class PlayerController : GameCharacterController
             case KeyCode.A:
                 Debug.Log("A pressed");
                 LeftAttack();
+                chopAnalytics.IncrementLeftAttack();
                 break;
             case KeyCode.W:
                 Debug.Log("W pressed");
                 UpAttack();
+                chopAnalytics.IncrementUpAttack();
                 break;
             case KeyCode.D:
                 Debug.Log("D pressed");
                 RightAttack();
+                chopAnalytics.IncrementRightAttack();
                 break;
         }
     }

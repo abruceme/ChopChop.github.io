@@ -13,10 +13,15 @@ public class Health : MonoBehaviour
     private HealthBar healthBar;
     [SerializeField]
     private GameObject damageParticle;
+    private ChopChopAnalytics chopAnalytics;
+   
+    
+
     // Start is called before the first frame update
     void Start()
     {
         healthBar.SetMaxHealth(characterHealth);
+        chopAnalytics = GameObject.Find("ChopChopAnalytics").GetComponent<ChopChopAnalytics>();
     }
 
     // Update is called once per frame
@@ -36,6 +41,7 @@ public class Health : MonoBehaviour
         {
             WeaponCollision opponentWeapon = other.gameObject.GetComponent<WeaponCollision>();
             Animator opponentAnimator = opponentWeapon.defenderAnimator;
+
             string opponentTag = opponentAnimator.gameObject.tag;
             string characterTag = gameCharacter.tag;
             int move = opponentAnimator.GetInteger("Move");
@@ -46,9 +52,21 @@ public class Health : MonoBehaviour
                 Instantiate(damageParticle, other.contacts[0].point, Quaternion.identity);
                 TakeDamage(opponentWeapon.weaponDamage);
                 Debug.Log(characterTag + " Health: " + characterHealth);
+
+                
+
                 if (opponentTag == "Player")
                 {
                     opponentWeapon.DamageWeapon();
+                    chopAnalytics.IncrementEnemyDamaged();
+                }
+                else 
+                {
+                    GameCharacterController pcontroller = this.gameObject.transform.parent.parent.parent.GetComponentInParent<GameCharacterController>();
+                    if (pcontroller.Blocking())
+                    {
+                        chopAnalytics.IncrementBlockFailed();
+                    }
                 }
             }
             if (characterHealth < 1)
@@ -58,16 +76,21 @@ public class Health : MonoBehaviour
                 {
                     Destroy(gameCharacter.parent.gameObject);
                     gameCharacter.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
-                    AnalyticsResult result = AnalyticsEvent.Custom("Destroy", null);
-                    Debug.Log(result);
+                    chopAnalytics.IncrementEnemiesKilled(opponentWeapon.gameObject.name);
+
+
                 }
                 if(characterTag == "Player")
                 {
                     Time.timeScale = 0f;
                     GameObject.Find("PauseButton").SetActive(false);
                     GameObject.Find("Canvas").transform.Find("Restart").gameObject.SetActive(true);
+                    chopAnalytics.TimeTrack();
                 }
+                
                 Debug.Log(characterTag + " died :(");
+
+               
             }
         }
     }
