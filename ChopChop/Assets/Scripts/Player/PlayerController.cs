@@ -21,8 +21,11 @@ public class PlayerController : GameCharacterController
     void Start()
     {
         SetWeapon();
-        chopAnalytics = GameObject.Find("ChopChopAnalytics").GetComponent<ChopChopAnalytics>();
-
+        GameObject go = GameObject.Find("ChopChopAnalytics");
+        if (go != null)
+        {
+            chopAnalytics = go.GetComponent<ChopChopAnalytics>();
+        }
     }
 
     // Update is called once per frame
@@ -119,17 +122,18 @@ public class PlayerController : GameCharacterController
             case KeyCode.A:
                 Debug.Log("A pressed");
                 LeftAttack();
-                chopAnalytics.IncrementLeftAttack();
+                ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.leftAttack);
                 break;
             case KeyCode.W:
                 Debug.Log("W pressed");
                 UpAttack();
-                chopAnalytics.IncrementUpAttack();
+                ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.upAttack);
+
                 break;
             case KeyCode.D:
                 Debug.Log("D pressed");
                 RightAttack();
-                chopAnalytics.IncrementRightAttack();
+                ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.rightAttack);
                 break;
         }
     }
