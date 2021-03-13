@@ -14,14 +14,18 @@ public class Health : MonoBehaviour
     [SerializeField]
     private GameObject damageParticle;
     private ChopChopAnalytics chopAnalytics;
-   
-    
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         healthBar.SetMaxHealth(characterHealth);
-        chopAnalytics = GameObject.Find("ChopChopAnalytics").GetComponent<ChopChopAnalytics>();
+        GameObject go = GameObject.Find("ChopChopAnalytics");
+        if (go != null)
+        {
+            chopAnalytics = go.GetComponent<ChopChopAnalytics>();
+        }
     }
 
     // Update is called once per frame
@@ -47,35 +51,37 @@ public class Health : MonoBehaviour
             int move = opponentAnimator.GetInteger("Move");
             if (characterTag != opponentTag
                 && IsAttack(move)
-                && WeaponColliderMatch(opponentWeapon,move))
+                && WeaponColliderMatch(opponentWeapon, move))
             {
                 Instantiate(damageParticle, other.contacts[0].point, Quaternion.identity);
                 TakeDamage(opponentWeapon.weaponDamage);
                 Debug.Log(characterTag + " Health: " + characterHealth);
 
-                
+
 
                 if (opponentTag == "Player")
                 {
                     opponentWeapon.DamageWeapon();
-                    chopAnalytics.IncrementEnemyDamaged();
+                    ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.enemydamaged);
+
                 }
-                else 
+                else
                 {
                     GameCharacterController pcontroller = this.gameObject.transform.parent.parent.parent.GetComponentInParent<GameCharacterController>();
                     if (pcontroller.Blocking())
                     {
-                        chopAnalytics.IncrementBlockFailed();
+                        ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.failedToBlock);
                     }
                 }
             }
             if (characterHealth < 1)
             {
-                
+
                 if (characterTag == "Enemy")
                 {
                     Destroy(gameCharacter.parent.gameObject);
                     gameCharacter.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
+<<<<<<< Updated upstream
 
                     chopAnalytics.IncrementEnemiesKilled(opponentWeapon.gameObject.name);
 
@@ -84,18 +90,25 @@ public class Health : MonoBehaviour
                     AnalyticsResult result = Analytics.CustomEvent("Destroy", null);
                     Debug.Log(result);
 
+=======
+                    ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.enemiesKilledSword, opponentWeapon.gameObject.name);
+
+                    AnalyticsResult result = Analytics.CustomEvent("Destroy", null);
+                    Debug.Log(result);
+>>>>>>> Stashed changes
                 }
-                if(characterTag == "Player")
+                if (characterTag == "Player")
                 {
                     Time.timeScale = 0f;
                     GameObject.Find("PauseButton").SetActive(false);
                     GameObject.Find("Canvas").transform.Find("Restart").gameObject.SetActive(true);
-                    chopAnalytics.TimeTrack();
+                    ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.currenttime);
+
                 }
-                
+
                 Debug.Log(characterTag + " died :(");
 
-               
+
             }
         }
     }
@@ -116,12 +129,12 @@ public class Health : MonoBehaviour
             || move == (int)GameCharacterController.CharacterStates.RIGHTPUNCH
             || move == (int)GameCharacterController.CharacterStates.UPPUNCH;
     }
-    
+
     private bool WeaponColliderMatch(WeaponCollision weapon, int move)
     {
         return (weapon.IsWeapon()
-            &&IsSlash(move))
-            ||(!weapon.IsWeapon()
-            &&IsPunch(move));
+            && IsSlash(move))
+            || (!weapon.IsWeapon()
+            && IsPunch(move));
     }
 }

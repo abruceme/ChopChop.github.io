@@ -6,13 +6,11 @@ using UnityEngine.Analytics;
 
 public class WeaponCollision : MonoBehaviour
 {
-    
     public Animator defenderAnimator;
     public int weaponHealth;
     public int weaponDamage;
     private ChopChopAnalytics chopAnalytics;
     public enum WeaponDamage
-
     {
         SWORD = 30,
         AXE = 40,
@@ -27,7 +25,11 @@ public class WeaponCollision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        chopAnalytics = GameObject.Find("ChopChopAnalytics").GetComponent<ChopChopAnalytics>();
+        GameObject go = GameObject.Find("ChopChopAnalytics");
+        if (go != null)
+        {
+            chopAnalytics = go.GetComponent<ChopChopAnalytics>();
+        }
     }
 
     // Update is called once per frame
@@ -63,7 +65,7 @@ public class WeaponCollision : MonoBehaviour
                     && IsBlockMove(defenderMove))
                 {
                     DamageWeapon();
-                    chopAnalytics.IncrementBlockSuccess();
+                    ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.attackBlocked);
 
                 }
                 if (defenderCharacter == "Enemy"
@@ -139,7 +141,8 @@ public class WeaponCollision : MonoBehaviour
     }
     public void DamageWeapon()
     {
-        if (IsWeapon()){
+        if (IsWeapon())
+        {
             Debug.Log(defenderAnimator.gameObject.tag + " " + gameObject.name + " weapon health: " + weaponHealth);
             weaponHealth -= 10;
             if (weaponHealth <= 0)
