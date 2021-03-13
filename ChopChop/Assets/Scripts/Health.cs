@@ -81,21 +81,7 @@ public class Health : MonoBehaviour
                 {
                     Destroy(gameCharacter.parent.gameObject);
                     gameCharacter.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
-<<<<<<< Updated upstream
-
-                    chopAnalytics.IncrementEnemiesKilled(opponentWeapon.gameObject.name);
-
-
-
-                    AnalyticsResult result = Analytics.CustomEvent("Destroy", null);
-                    Debug.Log(result);
-
-=======
                     ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.enemiesKilledSword, opponentWeapon.gameObject.name);
-
-                    AnalyticsResult result = Analytics.CustomEvent("Destroy", null);
-                    Debug.Log(result);
->>>>>>> Stashed changes
                 }
                 if (characterTag == "Player")
                 {
