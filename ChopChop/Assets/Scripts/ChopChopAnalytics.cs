@@ -61,6 +61,7 @@ public class ChopChopAnalytics : MonoBehaviour
             {"EnemiesKilledBySword", enemiesKilledSword },
             {"EnemiesKilledByAxe", enemiesKilledAxe },
             {"EnemiesKilledByMace", enemiesKilledMace }
+            {"WeaponStolen", stealweapon }
         });
         Debug.Log("Result: " + result);
 
