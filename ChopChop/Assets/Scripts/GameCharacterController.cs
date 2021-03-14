@@ -8,6 +8,9 @@ public class GameCharacterController : MonoBehaviour
     [SerializeField]
     public WeaponStates currentWeapon = WeaponStates.NOWEAPON;
     public Transform weapon;
+    private bool canDamage = false;
+    public GameObject leftForearm;
+    public GameObject rightForearm;
     public enum WeaponStates
     {
         NOWEAPON,
@@ -52,7 +55,7 @@ public class GameCharacterController : MonoBehaviour
         {
             animator.SetInteger("Move", (int)CharacterStates.WEAPONIDLE);
         }
-        Debug.Log(tag + " idle");
+        //Debug.Log(tag + " idle");
     }
     public void LeftAttack()
     {
@@ -185,6 +188,7 @@ public class GameCharacterController : MonoBehaviour
         }
         if (weaponObject != null)
         {
+            DisableFists();
             weaponObject.SetActive(true);
             weaponObject.GetComponent<WeaponCollision>().weaponHealth = weaponHealth;
             weaponObject.GetComponent<WeaponCollision>().weaponDamage = weaponDamage;
@@ -199,11 +203,34 @@ public class GameCharacterController : MonoBehaviour
         {
             weapon.GetChild(i).gameObject.SetActive(false);
         }
+        EnableFists();
     }
     public void SetWeapon(GameCharacterController.WeaponStates item)
     {
         currentWeapon = item;
         SetWeapon();
+    }
+    public bool CanDamage()
+    {
+        return canDamage;
+    }
+    public void CharCanDamage()
+    {
+        canDamage = true;
+    }
+    public void CharCannotDamage()
+    {
+        canDamage = false;
+    }
+    public void EnableFists()
+    {
+        leftForearm.GetComponent<CapsuleCollider>().enabled = true;
+        rightForearm.GetComponent<CapsuleCollider>().enabled = true;
+    }
+    public void DisableFists()
+    {
+        leftForearm.GetComponent<CapsuleCollider>().enabled = false;
+        rightForearm.GetComponent<CapsuleCollider>().enabled = false;
     }
 
 }

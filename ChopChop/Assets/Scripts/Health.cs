@@ -49,9 +49,12 @@ public class Health : MonoBehaviour
             string opponentTag = opponentAnimator.gameObject.tag;
             string characterTag = gameCharacter.tag;
             int move = opponentAnimator.GetInteger("Move");
+            bool opponentCanDamage = opponentAnimator.gameObject.GetComponent<GameCharacterController>().CanDamage();
+            //Debug.Log("character: " + opponentTag + "; canDamage: "+opponentCanDamage);
             if (characterTag != opponentTag
                 && IsAttack(move)
-                && WeaponColliderMatch(opponentWeapon, move))
+                && WeaponColliderMatch(opponentWeapon, move)
+                && opponentCanDamage)
             {
                 Instantiate(damageParticle, other.contacts[0].point, Quaternion.identity);
                 TakeDamage(opponentWeapon.weaponDamage);
