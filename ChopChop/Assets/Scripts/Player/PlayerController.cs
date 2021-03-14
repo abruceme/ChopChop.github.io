@@ -101,15 +101,15 @@ public class PlayerController : GameCharacterController
             switch (keyPressed)
             {
                 case KeyCode.A:
-                    Debug.Log("A held down");
+                    //Debug.Log("A held down");
                     LeftBlock();
                     break;
                 case KeyCode.W:
-                    Debug.Log("W held down");
+                    //Debug.Log("W held down");
                     UpBlock();
                     break;
                 case KeyCode.D:
-                    Debug.Log("D held down");
+                    //Debug.Log("D held down");
                     RightBlock();
                     break;
             }
@@ -120,18 +120,18 @@ public class PlayerController : GameCharacterController
         switch (keyPressed)
         {
             case KeyCode.A:
-                Debug.Log("A pressed");
+                //Debug.Log("A pressed");
                 LeftAttack();
                 ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.leftAttack);
                 break;
             case KeyCode.W:
-                Debug.Log("W pressed");
+                //Debug.Log("W pressed");
                 UpAttack();
                 ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.upAttack);
 
                 break;
             case KeyCode.D:
-                Debug.Log("D pressed");
+                //Debug.Log("D pressed");
                 RightAttack();
                 ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.rightAttack);
                 break;
