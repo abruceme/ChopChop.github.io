@@ -12931,8 +12931,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.4
-    functionName: EnableBlock
+  - time: 0.36666667
+    functionName: CharCannotDamage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -12946,7 +12946,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.4
-    functionName: CharCannotDamage
+    functionName: EnableBlock
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

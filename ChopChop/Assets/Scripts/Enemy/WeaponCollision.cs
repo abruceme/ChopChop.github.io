@@ -150,6 +150,7 @@ public class WeaponCollision : MonoBehaviour
                 PlayerController player = defenderAnimator.gameObject.GetComponent<PlayerController>();
                 player.SetWeapon(GameCharacterController.WeaponStates.NOWEAPON);
                 player.EnableBlock();
+                player.CharCanDamage();
             }
         }
     }
