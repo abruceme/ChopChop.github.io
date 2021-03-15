@@ -16,13 +16,15 @@ public class PlayerRotate : MonoBehaviour
     void Update()
     {
        
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            StartCoroutine(RotateMe(Vector3.up * -90, 0.9f));
+            //StartCoroutine(RotateMe(Vector3.up * -100, .1f));
+            transform.Rotate(Vector3.up, -90);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            StartCoroutine(RotateMe(Vector3.up * 90, 0.9f));
+            //StartCoroutine(RotateMe(Vector3.up * 100, .1f));
+            transform.Rotate(Vector3.up, 90);
         }
     }
 
