@@ -18,7 +18,7 @@ namespace scoring
         void Start()
         {
             totalPoints = 0;
-            totalGold = 0;
+            totalGold = 1000;
         }
 
         // Update is called once per frame
@@ -47,6 +47,10 @@ namespace scoring
         public static int getGold()
         {
             return totalGold;
+        }
+
+        public static void setGold(int gold){
+            totalGold = gold;
         }
     }
 }
