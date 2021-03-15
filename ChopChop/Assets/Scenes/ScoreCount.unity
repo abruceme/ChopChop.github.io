@@ -1475,6 +1475,8 @@ MonoBehaviour:
   healthPotionval: 30
   powerPotionval: 15
   health: {fileID: 1986338575}
+  player: {fileID: 1986338576}
+  powerPotionButton: {fileID: 1902521240}
 --- !u!114 &758900822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4237,6 +4239,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38faa8e461065984c912d791f05c956c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1986338576 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1248507344638718284, guid: 7a8d92b79ce6fed4394576fdbd9279ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 1986338573}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5600b70d22551e418d307386d3cbddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1995598177

@@ -182,8 +182,47 @@ public class GameCharacterController : MonoBehaviour
                 break;
             case WeaponStates.MACE:
                 weaponObject = weapon.Find("mace").gameObject;
+                weaponHealth = (int)WeaponCollision.WeaponHealth.MACE;
+                weaponDamage = (int)WeaponCollision.WeaponDamage.MACE;
+                break;
+        }
+        if (weaponObject != null)
+        {
+            DisableFists();
+            weaponObject.SetActive(true);
+            weaponObject.GetComponent<WeaponCollision>().weaponHealth = weaponHealth;
+            weaponObject.GetComponent<WeaponCollision>().weaponDamage = weaponDamage;
+            nextMove = (int)CharacterStates.WEAPONIDLE;
+        }
+        animator.SetInteger("Move", nextMove);
+    }
+
+    public void SetPlayerWeapon(int powerPotionval)
+    {
+        DeactivateAllWeapons();
+        int nextMove = (int)CharacterStates.WEAPONLESSIDLE;
+        GameObject weaponObject = null;
+        int weaponHealth = 0;
+        int weaponDamage = 0;
+        switch (currentWeapon)
+        {
+            case WeaponStates.SWORD:
+                weaponObject = weapon.Find("sword").gameObject;
+                weaponHealth = (int)WeaponCollision.WeaponHealth.SWORD;
+                weaponDamage = (int)WeaponCollision.WeaponDamage.SWORD + powerPotionval;
+                Debug.Log("Current Weapon Damage ---SWORD-----" + weaponDamage);
+                break;
+            case WeaponStates.AXE:
+                weaponObject = weapon.Find("axe").gameObject;
                 weaponHealth = (int)WeaponCollision.WeaponHealth.AXE;
-                weaponDamage = (int)WeaponCollision.WeaponDamage.AXE;
+                weaponDamage = (int)WeaponCollision.WeaponDamage.AXE + powerPotionval;
+                Debug.Log("Current Weapon Damage ----AXE----" + weaponDamage);
+                break;
+            case WeaponStates.MACE:
+                weaponObject = weapon.Find("mace").gameObject;
+                weaponHealth = (int)WeaponCollision.WeaponHealth.MACE;
+                weaponDamage = (int)WeaponCollision.WeaponDamage.MACE + powerPotionval;
+                Debug.Log("Current Weapon Damage ----MACE----" + weaponDamage);
                 break;
         }
         if (weaponObject != null)

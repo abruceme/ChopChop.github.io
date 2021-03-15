@@ -13,6 +13,9 @@ public class StoreManagerScript : MonoBehaviour
     public int healthPotionval = 30;
     public int powerPotionval = 15;
     public Health health;
+    public PlayerController player;
+
+    public GameObject powerPotionButton;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +28,7 @@ public class StoreManagerScript : MonoBehaviour
 
         //item price
         storeItems[2, 1] = 30;      //health potion price
-        storeItems[2, 2] = 50;      //add attack boost price
+        storeItems[2, 2] = 150;      //add attack boost price
 
     }
 
@@ -47,7 +50,8 @@ public class StoreManagerScript : MonoBehaviour
                 health.addHealth(healthPotionval);
                 Debug.Log("Health After Drinking ------------  " + health.getCurrentHealth());
             }else if(boostID == 2){
-                
+                player.addAttack(powerPotionval);
+                powerPotionButton.GetComponent<Button>().interactable = false;
             }
         }
     }

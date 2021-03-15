@@ -20,12 +20,17 @@ public class PlayerController : GameCharacterController
     // Start is called before the first frame update
     void Start()
     {
-        SetWeapon();
+        SetWeapon(0);
         GameObject go = GameObject.Find("ChopChopAnalytics");
         if (go != null)
         {
             chopAnalytics = go.GetComponent<ChopChopAnalytics>();
         }
+    }
+
+    //for drinking powerpotion
+    public void addAttack(int powerPotionval){
+        SetPlayerWeapon(powerPotionval);
     }
 
     // Update is called once per frame
