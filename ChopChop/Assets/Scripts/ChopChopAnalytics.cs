@@ -15,6 +15,7 @@ public class ChopChopAnalytics : MonoBehaviour
     private int leftAttack = 0;
     private int rightAttack = 0;
     private int upAttack = 0;
+    private int stealweapon = 0;
     private string currentTime;
     [HideInInspector]
     public enum functiontype
@@ -28,7 +29,8 @@ public class ChopChopAnalytics : MonoBehaviour
         leftAttack,
         rightAttack,
         upAttack,
-        currenttime
+        currenttime,
+        stealweapon
     }
 
     public void IncrementEnemyDamaged()
@@ -59,7 +61,8 @@ public class ChopChopAnalytics : MonoBehaviour
             {"UpAttack", upAttack},
             {"EnemiesKilledBySword", enemiesKilledSword },
             {"EnemiesKilledByAxe", enemiesKilledAxe },
-            {"EnemiesKilledByMace", enemiesKilledMace }
+            {"EnemiesKilledByMace", enemiesKilledMace },
+            {"WeaponStolen", stealweapon }
         });
         Debug.Log("Result: " + result);
 
@@ -90,6 +93,10 @@ public class ChopChopAnalytics : MonoBehaviour
                 enemiesKilledMace++;
                 break;
         }
+    }
+    public void IncrementSteal()
+    {
+    	stealweapon++;
     }
 
     public static void RunAnalytics(ChopChopAnalytics chop, functiontype func, string weaponname = null)
@@ -122,8 +129,9 @@ public class ChopChopAnalytics : MonoBehaviour
                 case functiontype.currenttime:
                     chop.TimeTrack();
                     break;
-
-
+                case functiontype.stealweapon:
+                    chop.IncrementSteal();
+                    break;
             }
         }
     }

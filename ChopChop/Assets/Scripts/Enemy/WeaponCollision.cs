@@ -51,6 +51,7 @@ public class WeaponCollision : MonoBehaviour
                 //Debug.Log(defenderCharacter + " parry! Move: " + attackerMove);
                 Parry(attackerAnimator.gameObject.GetComponent<EnemyController>());
                 //steal analytics here
+                ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.stealweapon);
             }
             else if (((defenderCharacter == "Enemy"
                 && (IsBlockMove(defenderMove) || IsParryMove(defenderMove))
