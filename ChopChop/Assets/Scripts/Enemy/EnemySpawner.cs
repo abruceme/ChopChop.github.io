@@ -33,7 +33,11 @@ public class EnemySpawner : MonoBehaviour
     public Coroutine spawnCoroutine;
 
     public bool spawnActive = false;
-    void Awake()
+    public bool hasWaves = false;
+    public float speedIncreaseIncrement = 0.1f;
+    public int waveNumber = 1;
+    private int enemyCount = 0;
+    /*void Awake()
     {
         if (Instance == null)
         {
@@ -45,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log($"{this.gameObject.name} + gameobject destroyed duplicate singleton!");
             Destroy(this.gameObject);
         }
-    }
+    }*/
 
     private void Start()
     {
@@ -54,16 +58,19 @@ public class EnemySpawner : MonoBehaviour
         spawnPositionIndex = new List<int>();
         for (int i = 0; i < noOfEnemies; i++)
         {
-            spawnPositionIndex.Add(UnityEngine.Random.Range(0,noOfPaths));
+            spawnPositionIndex.Add(UnityEngine.Random.Range(0, noOfPaths));
         }
-
+        if (hasWaves)
+        {
+            StartCoroutine(ShowWave());
+        }
         ResetSpawnTimer(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(spawnActive)
+        if (spawnActive)
         {
             //timeBetweenNextSpawn -= Time.deltaTime;
             if (timeBetweenNextSpawn <= 0)
@@ -76,8 +83,8 @@ public class EnemySpawner : MonoBehaviour
     public void ResetSpawnTimer(float forceTime = -1)
     {
         //Reset SpawnTimer
-        if(forceTime < 0)
-        timeBetweenNextSpawn = UnityEngine.Random.Range(timeBetweenSpawnMin, timeBetweenSpawnMax);
+        if (forceTime < 0)
+            timeBetweenNextSpawn = UnityEngine.Random.Range(timeBetweenSpawnMin, timeBetweenSpawnMax);
         Debug.Log($"Next Spawn in {timeBetweenNextSpawn}s");
         spawnActive = true;
     }
@@ -92,11 +99,20 @@ public class EnemySpawner : MonoBehaviour
         ai.gameObject.name = "Enemy " + curSpawnIndex;
         ai.enemy.curState = EnemyController.EnemyStates.RUNNING;
         ai.enemy.currentWeapon = (GameCharacterController.WeaponStates)UnityEngine.Random.Range(1, 4);
+        if (hasWaves)
+        {
+            ai.enemy.SetCharacterHealth(50 * ((waveNumber / 2) + 1));
+            ai.enemy.IncreaseAttackSpeed(waveNumber * speedIncreaseIncrement);
+        }
+        else
+        {
+            ai.enemy.SetAttackSpeed();
+        }
         ai.Spawn(spawnPath.startPosition.position, spawnPath.endPosition.position);
         curSpawnIndex += 1;
         spawnActive = false;
 
-        if (curSpawnIndex != spawnPositionIndex.Count )
+        if (curSpawnIndex != spawnPositionIndex.Count)
         {
             ResetSpawnTimer();
         }
@@ -108,11 +124,29 @@ public class EnemySpawner : MonoBehaviour
     public void ResetTimeBetweenNextSpawn()
     {
         timeBetweenNextSpawn = 0;
+        if (hasWaves)
+        {
+            enemyCount++;
+            if (enemyCount % 3 == 0)
+            {
+                waveNumber++;
+                StartCoroutine(ShowWave());
+                Debug.Log("You made it to Wave " + (waveNumber));
+            }
+        }
     }
     [Serializable]
     public struct SpawnPath
     {
         public Transform startPosition;
         public Transform endPosition;
+    }
+    IEnumerator ShowWave()
+    {
+        GameObject waveNumberText = GameObject.Find("WaveNumber");
+        waveNumberText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + waveNumber;
+        waveNumberText.GetComponent<Animator>().SetBool("Fade",true);
+        yield return new WaitForSeconds(2.5f);
+        GameObject.Find("WaveNumber").GetComponent<Animator>().SetBool("Fade",false);
     }
 }

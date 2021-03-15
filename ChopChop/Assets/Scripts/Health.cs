@@ -35,6 +35,12 @@ public class Health : MonoBehaviour
     {
     }
 
+    public void SetCharacterHealth(int health)
+    {
+        characterHealth = health;
+        healthBar.SetMaxHealth(characterHealth);
+    }
+
     void TakeDamage(int damage)
     {
         characterHealth -= damage;

@@ -1165,6 +1165,7 @@ MonoBehaviour:
   healthBar: {fileID: 3191106054415579261}
   damageParticle: {fileID: 7857408422991531324, guid: 2a6d5a724b88dfa49bb46b5933318d8d,
     type: 3}
+  gameManager: {fileID: 0}
 --- !u!136 &7563177104033768009
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1176,9 +1177,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.15725555
-  m_Height: 0.87621415
+  m_Height: 0.9648478
   m_Direction: 1
-  m_Center: {x: -0.007964132, y: 0.07374369, z: -0.02020297}
+  m_Center: {x: -0.007964132, y: 0.11806017, z: -0.020203063}
 --- !u!54 &3445354832405061149
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1964,7 +1965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9ccbb037d13eb4992de9915eb2cd70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 5
+  totalTime: 2
   enemy: {fileID: 3779195983074801486}
 --- !u!1 &4915274615175608305
 GameObject:
@@ -2252,6 +2253,7 @@ MonoBehaviour:
   leftForearm: {fileID: 2176793802981512647}
   rightForearm: {fileID: 3448906548413331408}
   curState: 0
+  enemyHealthObject: {fileID: 2440460845786731723}
 --- !u!1 &5868243672172353823
 GameObject:
   m_ObjectHideFlags: 0
