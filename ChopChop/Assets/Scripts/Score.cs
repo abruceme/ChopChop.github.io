@@ -48,5 +48,9 @@ namespace scoring
         {
             return totalGold;
         }
+
+        public static void setGold(int gold){
+            totalGold = gold;
+        }
     }
 }

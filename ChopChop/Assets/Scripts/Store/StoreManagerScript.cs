@@ -10,6 +10,10 @@ public class StoreManagerScript : MonoBehaviour
     public float golds = Score.getGold();
     public Text goldText;
 
+    public int healthPotionval = 30;
+    public int powerPotionval = 15;
+    public Health health;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,11 +36,19 @@ public class StoreManagerScript : MonoBehaviour
         Debug.Log("Current Gold-----------------" + Score.getGold());
 
         int currentGold = Score.getGold();
-        if(currentGold >= storeItems[2, buttonRef.GetComponent<ButtonInfo>().boostID]){
-            Score.useGold(storeItems[2, buttonRef.GetComponent<ButtonInfo>().boostID]);
+        if(currentGold >= storeItems[2, buttonRef.GetComponent<BuyPotion>().boostID]){
+            Score.useGold(storeItems[2, buttonRef.GetComponent<BuyPotion>().boostID]);
             // currentGold -= storeItems[2, buttonRef.GetComponent<ButtonInfo>().boostID];
             Debug.Log("Money Left ------------  " + Score.getGold());
             goldText.text = "Golds:" + golds.ToString();
+
+            int boostID = buttonRef.GetComponent<BuyPotion>().boostID;
+            if(boostID == 1){
+                health.addHealth(healthPotionval);
+                Debug.Log("Health After Drinking ------------  " + health.getCurrentHealth());
+            }else if(boostID == 2){
+                
+            }
         }
     }
 }

@@ -36,6 +36,7 @@ public class Pause : MonoBehaviour
     {
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
+        helathPotion.SetActive(false);
         powerPotion.SetActive(false);
         paused = false;
 

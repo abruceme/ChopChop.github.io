@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ButtonInfo : MonoBehaviour
+public class BuyPotion : MonoBehaviour
 {
     public int boostID;
     public Text priceText;

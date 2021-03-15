@@ -16,6 +16,8 @@ public class Health : MonoBehaviour
     private GameObject damageParticle;
     private ChopChopAnalytics chopAnalytics;
 
+    public GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,27 @@ public class Health : MonoBehaviour
     void TakeDamage(int damage)
     {
         characterHealth -= damage;
+        healthBar.SetHealth(characterHealth);
+    }
+
+    //add health after buying the health potion
+    public void addHealth(int healthPotionval){
+        int healthAfterPotion = characterHealth + healthPotionval;
+        if(healthAfterPotion < 100){
+            characterHealth = healthAfterPotion;
+        }else{
+            characterHealth = 100;
+        }
+
+        healthBar.SetHealth(characterHealth);
+    }
+
+    public int getCurrentHealth(){
+        return characterHealth;
+    }
+
+    public void SetPlayerHealth(int health){
+        characterHealth = health;
         healthBar.SetHealth(characterHealth);
     }
 
@@ -92,8 +115,9 @@ public class Health : MonoBehaviour
                     Time.timeScale = 0f;
                     GameObject.Find("PauseButton").SetActive(false);
                     GameObject.Find("Canvas").transform.Find("Restart").gameObject.SetActive(true);
+                    gameManager.GameOver();
                     ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.currenttime);
-  
+
 
                 }
 
