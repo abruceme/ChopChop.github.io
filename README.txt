@@ -24,3 +24,7 @@ WEAPON MOVE STATES
 MOVING STATES
 20- parry reaction: 0
 21- running: 0,10 
+
+EnemySpawner Endpositions:
+North Endpoint:
+	Best position seems to be 0x,0y,-.1z 

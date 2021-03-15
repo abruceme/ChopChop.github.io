@@ -48,7 +48,7 @@ public class WeaponCollision : MonoBehaviour
                 && defenderCharacter == "Player"
                 && DirectionMatch(attackerMove, defenderMove))
             {
-                Debug.Log(defenderCharacter + " parry! Move: " + attackerMove);
+                //Debug.Log(defenderCharacter + " parry! Move: " + attackerMove);
                 Parry(attackerAnimator.gameObject.GetComponent<EnemyController>());
                 //steal analytics here
             }
@@ -60,7 +60,7 @@ public class WeaponCollision : MonoBehaviour
                 && (NotParrying(attackerMove, defenderMove) || BlockingPunch(attackerMove, defenderMove))
                 )) && DirectionMatch(attackerMove, defenderMove))
             {
-                Debug.Log(defenderCharacter + " blocked! Move: " + attackerMove);
+                Debug.Log(defenderCharacter + " blocked! Move: " + attackerMove+ " with "+gameObject.name);
                 if (defenderCharacter == "Player"
                     && IsBlockMove(defenderMove))
                 {
@@ -159,5 +159,4 @@ public class WeaponCollision : MonoBehaviour
             || gameObject.name == "axe"
             || gameObject.name == "mace";
     }
-
 }

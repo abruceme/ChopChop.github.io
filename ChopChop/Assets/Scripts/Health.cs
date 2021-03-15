@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
+using scoring;
 
 public class Health : MonoBehaviour
 {
@@ -15,12 +16,11 @@ public class Health : MonoBehaviour
     private GameObject damageParticle;
     private ChopChopAnalytics chopAnalytics;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
         healthBar.SetMaxHealth(characterHealth);
+
         GameObject go = GameObject.Find("ChopChopAnalytics");
         if (go != null)
         {
@@ -49,9 +49,12 @@ public class Health : MonoBehaviour
             string opponentTag = opponentAnimator.gameObject.tag;
             string characterTag = gameCharacter.tag;
             int move = opponentAnimator.GetInteger("Move");
+            bool opponentCanDamage = opponentAnimator.gameObject.GetComponent<GameCharacterController>().CanDamage();
+            //Debug.Log("character: " + opponentTag + "; canDamage: "+opponentCanDamage);
             if (characterTag != opponentTag
                 && IsAttack(move)
-                && WeaponColliderMatch(opponentWeapon, move))
+                && WeaponColliderMatch(opponentWeapon, move)
+                && opponentCanDamage)
             {
                 Instantiate(damageParticle, other.contacts[0].point, Quaternion.identity);
                 TakeDamage(opponentWeapon.weaponDamage);
@@ -63,7 +66,7 @@ public class Health : MonoBehaviour
                 {
                     opponentWeapon.DamageWeapon();
                     ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.enemydamaged);
-
+                    Score.addScore(0, 15);
                 }
                 else
                 {
@@ -82,6 +85,7 @@ public class Health : MonoBehaviour
                     Destroy(gameCharacter.parent.gameObject);
                     gameCharacter.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
                     ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.enemiesKilledSword, opponentWeapon.gameObject.name);
+                    Score.addScore(5, 25);
                 }
                 if (characterTag == "Player")
                 {
@@ -89,6 +93,7 @@ public class Health : MonoBehaviour
                     GameObject.Find("PauseButton").SetActive(false);
                     GameObject.Find("Canvas").transform.Find("Restart").gameObject.SetActive(true);
                     ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.currenttime);
+  
 
                 }
 
