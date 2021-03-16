@@ -36,19 +36,18 @@ public class StoreManagerScript : MonoBehaviour
     public void BuyBoosts()
     {
         GameObject buttonRef = GameObject.FindGameObjectWithTag("StoreEvent").GetComponent<EventSystem>().currentSelectedGameObject;
-        Debug.Log("Current Gold-----------------" + Score.getGold());
+        // Debug.Log("Current Gold-----------------" + Score.getGold());
 
         int currentGold = Score.getGold();
         if(currentGold >= storeItems[2, buttonRef.GetComponent<BuyPotion>().boostID]){
             Score.useGold(storeItems[2, buttonRef.GetComponent<BuyPotion>().boostID]);
-            // currentGold -= storeItems[2, buttonRef.GetComponent<ButtonInfo>().boostID];
-            Debug.Log("Money Left ------------  " + Score.getGold());
+            // Debug.Log("Money Left ------------  " + Score.getGold());
             goldText.text = "Golds:" + golds.ToString();
 
             int boostID = buttonRef.GetComponent<BuyPotion>().boostID;
             if(boostID == 1){
                 health.addHealth(healthPotionval);
-                Debug.Log("Health After Drinking ------------  " + health.getCurrentHealth());
+                Debug.Log("Health After Drinking Potion------------  " + health.getCurrentHealth());
             }else if(boostID == 2){
                 player.addAttack(powerPotionval);
                 powerPotionButton.GetComponent<Button>().interactable = false;
