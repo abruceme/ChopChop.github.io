@@ -124,6 +124,7 @@ public class Health : MonoBehaviour
                     gameCharacter.GetComponentInParent<EnemySpawner>().ResetTimeBetweenNextSpawn();
                     ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.enemiesKilledSword, opponentWeapon.gameObject.name);
                     Score.addScore(5, 25);
+                    ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.enemydied);
                 }
                 if (characterTag == "Player")
                 {
