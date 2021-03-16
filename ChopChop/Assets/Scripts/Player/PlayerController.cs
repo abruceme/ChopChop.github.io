@@ -21,6 +21,7 @@ public class PlayerController : GameCharacterController
     void Start()
     {
         SetWeapon(0);
+        // SetPlayerWeapon();
         GameObject go = GameObject.Find("ChopChopAnalytics");
         if (go != null)
         {
@@ -29,8 +30,8 @@ public class PlayerController : GameCharacterController
     }
 
     //for drinking powerpotion
-    public void addAttack(int powerPotionval){
-        SetPlayerWeapon(powerPotionval);
+    public void addAttack(){
+        SetPlayerWeapon();
     }
 
     // Update is called once per frame

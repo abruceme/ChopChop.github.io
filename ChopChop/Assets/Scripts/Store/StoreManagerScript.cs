@@ -17,6 +17,10 @@ public class StoreManagerScript : MonoBehaviour
 
     public GameObject powerPotionButton;
 
+    public WeaponCollision weaponCollision;
+
+    public bool boughtPowerPotion = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +32,17 @@ public class StoreManagerScript : MonoBehaviour
 
         //item price
         storeItems[2, 1] = 30;      //health potion price
-        storeItems[2, 2] = 150;      //add attack boost price
+        storeItems[2, 2] = 50;      //add attack boost price
 
+    }
+
+    public void setBoughtPowerPotionState(bool newState){
+        boughtPowerPotion = newState;
+    }
+
+    public void activatePowerPotion(){
+        boughtPowerPotion = false;
+        powerPotionButton.GetComponent<Button>().interactable = true;
     }
 
     // Update is called once per frame
@@ -49,9 +62,25 @@ public class StoreManagerScript : MonoBehaviour
                 health.addHealth(healthPotionval);
                 Debug.Log("Health After Drinking Potion------------  " + health.getCurrentHealth());
             }else if(boostID == 2){
-                player.addAttack(powerPotionval);
-                powerPotionButton.GetComponent<Button>().interactable = false;
+                // if(!boughtPowerPotion){
+                    boughtPowerPotion = true;
+                    player.addAttack();
+                    // Debug.Log("Current Left Arm Attack value ------------  " + GameObject.Find("mixamorig:LeftArm").GetComponent<WeaponCollision>().getFirstDamage());
+                    // Debug.Log("Current Right Arm Attack value ------------  " + GameObject.Find("mixamorig:RightArm").GetComponent<WeaponCollision>().getFirstDamage());
+                    Debug.Log("Bought Power Potion------------  ");        
+                    powerPotionButton.GetComponent<Button>().interactable = false;
+                // }
+                // else{
+                //     boughtPowerPotion = false;
+                //     Debug.Log("Power Potion Activated------------  ");  
+                //     powerPotionButton.GetComponent<Button>().interactable = true;
+                // }
+                
             }
         }
+    }
+
+    public void addPlayerAttack(){
+
     }
 }

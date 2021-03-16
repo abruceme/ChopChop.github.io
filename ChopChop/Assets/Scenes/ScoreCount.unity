@@ -1394,6 +1394,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &549664654 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8141706230380224129, guid: 7a8d92b79ce6fed4394576fdbd9279ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 1986338573}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33156df67bbe8954db3b11d4026f048d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &599812016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,6 +1645,8 @@ MonoBehaviour:
   health: {fileID: 1986338575}
   player: {fileID: 1986338576}
   powerPotionButton: {fileID: 1902521240}
+  weaponCollision: {fileID: 549664654}
+  boughtPowerPotion: 0
 --- !u!114 &758900822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2303,6 +2317,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155832748}
   m_CullTransparentMesh: 0
+--- !u!1 &1268609290 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4914033323758697794, guid: 7a8d92b79ce6fed4394576fdbd9279ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 1986338573}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1268609291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268609290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad29f80ef7d3ccd4582b71456154448a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
 --- !u!1 &1422835101
 GameObject:
   m_ObjectHideFlags: 0
@@ -4520,6 +4553,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 60.09743
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141706230380224129, guid: 7a8d92b79ce6fed4394576fdbd9279ad,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8212279566186242306, guid: 7a8d92b79ce6fed4394576fdbd9279ad,
         type: 3}
