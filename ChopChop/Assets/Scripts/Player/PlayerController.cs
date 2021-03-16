@@ -20,7 +20,7 @@ public class PlayerController : GameCharacterController
     // Start is called before the first frame update
     void Start()
     {
-        SetWeapon(0);
+        SetWeapon(GameCharacterController.WeaponStates.NOWEAPON);
         // SetPlayerWeapon();
         GameObject go = GameObject.Find("ChopChopAnalytics");
         if (go != null)

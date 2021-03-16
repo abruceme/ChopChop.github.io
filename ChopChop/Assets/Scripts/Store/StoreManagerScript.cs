@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using scoring;
 public class StoreManagerScript : MonoBehaviour
 {
-    public int[,] storeItems = new int[3,3];
+    public int[,] storeItems = new int[3, 3];
     public float golds = Score.getGold();
     public Text goldText;
 
@@ -16,7 +16,7 @@ public class StoreManagerScript : MonoBehaviour
     public PlayerController player;
 
     public GameObject powerPotionButton;
-
+    [HideInInspector]
     public WeaponCollision weaponCollision;
 
     public bool boughtPowerPotion = false;
