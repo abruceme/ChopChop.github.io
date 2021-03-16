@@ -11,6 +11,12 @@ public class WeaponCollision : MonoBehaviour
     public int weaponHealth;
     public int weaponDamage;
     private ChopChopAnalytics chopAnalytics;
+
+    // private StoreManagerScript storeManager;
+
+    public enum noWeaponDamage{
+        FIST = 5
+    }
     public enum WeaponDamage
     {
         SWORD = 30,
@@ -31,6 +37,14 @@ public class WeaponCollision : MonoBehaviour
         {
             chopAnalytics = go.GetComponent<ChopChopAnalytics>();
         }
+    }
+
+    public void setDamage(int damage){
+        weaponDamage = damage;
+    }
+
+    public int getFirstDamage(){
+        return weaponDamage;
     }
 
     // Update is called once per frame
@@ -98,6 +112,11 @@ public class WeaponCollision : MonoBehaviour
     private void Parry(EnemyController enemy)
     {
         PlayerController controller = defenderAnimator.gameObject.GetComponent<PlayerController>();
+
+        // for power potion
+        // GameObject.Find("StoreManager").GetComponent<StoreManagerScript>().boughtPowerPotion = false;
+        GameObject.Find("StoreManager").GetComponent<StoreManagerScript>().activatePowerPotion();
+        
         controller.SetWeapon(enemy.currentWeapon);
         enemy.DeactivateAllWeapons();
         enemy.currentWeapon = GameCharacterController.WeaponStates.NOWEAPON;
@@ -152,6 +171,10 @@ public class WeaponCollision : MonoBehaviour
             if (weaponHealth <= 0)
             {
                 PlayerController player = defenderAnimator.gameObject.GetComponent<PlayerController>();
+                // for power potion
+                GameObject.Find("StoreManager").GetComponent<StoreManagerScript>().activatePowerPotion();
+                // GameObject.Find("StoreManager").GetComponent<StoreManagerScript>().boughtPowerPotion = false;
+                // powerPotionButton.GetComponent<Button>().interactable = true;
                 player.SetWeapon(GameCharacterController.WeaponStates.NOWEAPON);
                 player.EnableBlock();
             }

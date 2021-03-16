@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,8 +28,11 @@ public class Pause : MonoBehaviour
     {
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
+        // Debug.Log("Current prcatice Mode ? ------" + player.practiceMode);
         if (!player.practiceMode)
         {
+            GameObject.Find("Canvas").transform.Find("HealthPotionText").gameObject.SetActive(true);
+            GameObject.Find("Canvas").transform.Find("PowerPotionText").gameObject.SetActive(true);
             healthPotion.SetActive(true);
             powerPotion.SetActive(true);
         }
@@ -42,6 +45,8 @@ public class Pause : MonoBehaviour
         pauseMenu.SetActive(false);
         if (!player.practiceMode)
         {
+             GameObject.Find("Canvas").transform.Find("HealthPotionText").gameObject.SetActive(false);
+            GameObject.Find("Canvas").transform.Find("PowerPotionText").gameObject.SetActive(false);
             healthPotion.SetActive(false);
             powerPotion.SetActive(false);
         }

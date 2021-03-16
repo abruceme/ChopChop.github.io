@@ -45,6 +45,10 @@ public class GameCharacterController : MonoBehaviour
     }
 
 
+    // public WeaponStates getCurrentWeapon(){
+    //     return
+    // }
+
     public void Idle()
     {
         if (currentWeapon == WeaponStates.NOWEAPON)
@@ -185,6 +189,9 @@ public class GameCharacterController : MonoBehaviour
                 weaponHealth = (int)WeaponCollision.WeaponHealth.MACE;
                 weaponDamage = (int)WeaponCollision.WeaponDamage.MACE;
                 break;
+            case WeaponStates.NOWEAPON:
+                weaponDamage = (int)WeaponCollision.noWeaponDamage.FIST;
+                break;
         }
         if (weaponObject != null)
         {
@@ -197,32 +204,43 @@ public class GameCharacterController : MonoBehaviour
         animator.SetInteger("Move", nextMove);
     }
 
-    public void SetPlayerWeapon(int powerPotionval)
+    public void SetPlayerWeapon()
     {
         DeactivateAllWeapons();
         int nextMove = (int)CharacterStates.WEAPONLESSIDLE;
+        int powerPotionval= 15;
         GameObject weaponObject = null;
         int weaponHealth = 0;
+        bool withPowerPotion = GameObject.Find("StoreManager").GetComponent<StoreManagerScript>().boughtPowerPotion;
         int weaponDamage = 0;
+        if(withPowerPotion){
+            weaponDamage = powerPotionval;
+        }       
         switch (currentWeapon)
         {
             case WeaponStates.SWORD:
                 weaponObject = weapon.Find("sword").gameObject;
                 weaponHealth = (int)WeaponCollision.WeaponHealth.SWORD;
-                weaponDamage = (int)WeaponCollision.WeaponDamage.SWORD + powerPotionval;
+                weaponDamage += (int)WeaponCollision.WeaponDamage.SWORD;
                 Debug.Log("Current Weapon Damage ---SWORD-----" + weaponDamage);
                 break;
             case WeaponStates.AXE:
                 weaponObject = weapon.Find("axe").gameObject;
                 weaponHealth = (int)WeaponCollision.WeaponHealth.AXE;
-                weaponDamage = (int)WeaponCollision.WeaponDamage.AXE + powerPotionval;
+                weaponDamage += (int)WeaponCollision.WeaponDamage.AXE;
                 Debug.Log("Current Weapon Damage ----AXE----" + weaponDamage);
                 break;
             case WeaponStates.MACE:
                 weaponObject = weapon.Find("mace").gameObject;
                 weaponHealth = (int)WeaponCollision.WeaponHealth.MACE;
-                weaponDamage = (int)WeaponCollision.WeaponDamage.MACE + powerPotionval;
+                weaponDamage += (int)WeaponCollision.WeaponDamage.MACE;
                 Debug.Log("Current Weapon Damage ----MACE----" + weaponDamage);
+                break;
+            case WeaponStates.NOWEAPON:
+                weaponDamage += (int)WeaponCollision.noWeaponDamage.FIST;
+                Debug.Log("Current Weapon Damage ----FIST----" + weaponDamage);
+                leftForearm.GetComponent<WeaponCollision>().setDamage(weaponDamage);
+                rightForearm.GetComponent<WeaponCollision>().setDamage(weaponDamage);
                 break;
         }
         if (weaponObject != null)
@@ -230,6 +248,7 @@ public class GameCharacterController : MonoBehaviour
             DisableFists();
             weaponObject.SetActive(true);
             weaponObject.GetComponent<WeaponCollision>().weaponHealth = weaponHealth;
+            Debug.Log("Current Weapon Damage ----FINALLL----" + weaponDamage);
             weaponObject.GetComponent<WeaponCollision>().weaponDamage = weaponDamage;
             nextMove = (int)CharacterStates.WEAPONIDLE;
         }
@@ -247,7 +266,8 @@ public class GameCharacterController : MonoBehaviour
     public void SetWeapon(GameCharacterController.WeaponStates item)
     {
         currentWeapon = item;
-        SetWeapon();
+        // SetWeapon();
+        SetPlayerWeapon();
     }
     public bool CanDamage()
     {
