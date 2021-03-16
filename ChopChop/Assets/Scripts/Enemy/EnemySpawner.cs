@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using scoring;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -129,7 +130,9 @@ public class EnemySpawner : MonoBehaviour
             enemyCount++;
             if (enemyCount % 3 == 0)
             {
+                Score.addScore(8, 50);
                 waveNumber++;
+                Score.setWave(waveNumber);
                 StartCoroutine(ShowWave());
                 Debug.Log("You made it to Wave " + (waveNumber));
             }

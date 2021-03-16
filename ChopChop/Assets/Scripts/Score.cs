@@ -13,12 +13,14 @@ namespace scoring
         public Text goldText;
         private static int totalPoints;
         private static int totalGold;
+        private static int waveNum;
 
         // Start is called before the first frame update
         void Start()
         {
             totalPoints = 0;
             totalGold = 0;
+            waveNum = 1;
         }
 
         // Update is called once per frame
@@ -30,8 +32,8 @@ namespace scoring
 
         public static void addScore(int gold, int points)
         {
-            totalPoints += points;
-            totalGold += gold;
+            totalPoints += points * waveNum;
+            totalGold += gold * waveNum;
         }
 
         public static void useGold(int gold)
@@ -51,6 +53,11 @@ namespace scoring
 
         public static void setGold(int gold){
             totalGold = gold;
+        }
+
+        public static void setWave(int wave)
+        {
+            waveNum = wave;
         }
     }
 }

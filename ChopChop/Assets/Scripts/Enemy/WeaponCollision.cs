@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
+using scoring;
 
 
 public class WeaponCollision : MonoBehaviour
@@ -50,6 +51,7 @@ public class WeaponCollision : MonoBehaviour
             {
                 //Debug.Log(defenderCharacter + " parry! Move: " + attackerMove);
                 Parry(attackerAnimator.gameObject.GetComponent<EnemyController>());
+                Score.addScore(3, 10);
                 //steal analytics here
                 ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.stealweapon);
             }
@@ -66,6 +68,7 @@ public class WeaponCollision : MonoBehaviour
                     && IsBlockMove(defenderMove))
                 {
                     DamageWeapon();
+                    Score.addScore(0, 6);
                     ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.attackBlocked);
 
                 }
