@@ -16,6 +16,7 @@ public class ChopChopAnalytics : MonoBehaviour
     private int rightAttack = 0;
     private int upAttack = 0;
     private int stealweapon = 0;
+    private int enemydied = 0;
     private string currentTime;
     [HideInInspector]
     public enum functiontype
@@ -30,7 +31,8 @@ public class ChopChopAnalytics : MonoBehaviour
         rightAttack,
         upAttack,
         currenttime,
-        stealweapon
+        stealweapon,
+        enemydied
     }
 
     public void IncrementEnemyDamaged()
@@ -67,7 +69,8 @@ public class ChopChopAnalytics : MonoBehaviour
         Debug.Log("Result: " + result);
 
         AnalyticsResult result2 = Analytics.CustomEvent("AvgGameSession2", new Dictionary<string, object>{
-            {"WeaponStolen", stealweapon}
+            {"WeaponStolen", stealweapon},
+            {"EnemyDestroyed", enemydied}
         });
         Debug.Log("Result: " + result2);
 
@@ -103,6 +106,10 @@ public class ChopChopAnalytics : MonoBehaviour
     {
     	stealweapon++;
     }
+    public void IncrementDestroy()
+    {
+        enemydied++;
+    }
 
     public static void RunAnalytics(ChopChopAnalytics chop, functiontype func, string weaponname = null)
     {
@@ -136,6 +143,9 @@ public class ChopChopAnalytics : MonoBehaviour
                     break;
                 case functiontype.stealweapon:
                     chop.IncrementSteal();
+                    break;
+                case functiontype.enemydied:
+                    chop.IncrementDestroy();
                     break;
             }
         }
