@@ -67,7 +67,8 @@ public class ChopChopAnalytics : MonoBehaviour
         Debug.Log("Result: " + result);
 
         AnalyticsResult result2 = Analytics.CustomEvent("AvgGameSession2", new Dictionary<string, object>{
-            {"WeaponStolen", stealweapon});
+            {"WeaponStolen", stealweapon}
+        });
         Debug.Log("Result: " + result2);
 
     }
