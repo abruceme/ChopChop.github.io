@@ -8,10 +8,11 @@ public class Pause : MonoBehaviour
     // Start is called before the first frame update
     public GameObject pauseMenu;
 
-    public GameObject helathPotion;
+    public GameObject healthPotion;
     public GameObject powerPotion;
 
     private bool paused = false;
+    public PlayerController player;
     public void TogglePause()
     {
         if (!paused)
@@ -27,8 +28,11 @@ public class Pause : MonoBehaviour
     {
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
-        helathPotion.SetActive(true);
-        powerPotion.SetActive(true);
+        if (!player.practiceMode)
+        {
+            healthPotion.SetActive(true);
+            powerPotion.SetActive(true);
+        }
         paused = true;
 
     }
@@ -36,8 +40,11 @@ public class Pause : MonoBehaviour
     {
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-        helathPotion.SetActive(false);
-        powerPotion.SetActive(false);
+        if (!player.practiceMode)
+        {
+            healthPotion.SetActive(false);
+            powerPotion.SetActive(false);
+        }
         paused = false;
 
     }

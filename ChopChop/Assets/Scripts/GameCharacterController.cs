@@ -5,12 +5,12 @@ using UnityEngine;
 public class GameCharacterController : MonoBehaviour
 {
     public Animator animator;
-    [SerializeField]
     public WeaponStates currentWeapon = WeaponStates.NOWEAPON;
     public Transform weapon;
     private bool canDamage = false;
     public GameObject leftForearm;
     public GameObject rightForearm;
+    public bool practiceMode = false;
     public enum WeaponStates
     {
         NOWEAPON,
