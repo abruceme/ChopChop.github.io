@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
     float timeBetweenNextSpawn;
 
     public Coroutine spawnCoroutine;
-
+    [HideInInspector]
     public bool spawnActive = false;
     public bool hasWaves = false;
     public float speedIncreaseIncrement = 0.1f;

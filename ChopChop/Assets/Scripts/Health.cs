@@ -43,27 +43,36 @@ public class Health : MonoBehaviour
 
     void TakeDamage(int damage)
     {
-        characterHealth -= damage;
-        healthBar.SetHealth(characterHealth);
+        if (!gameCharacter.GetComponent<GameCharacterController>().practiceMode)
+        {
+            characterHealth -= damage;
+            healthBar.SetHealth(characterHealth);
+        }
     }
 
     //add health after buying the health potion
-    public void addHealth(int healthPotionval){
+    public void addHealth(int healthPotionval)
+    {
         int healthAfterPotion = characterHealth + healthPotionval;
-        if(healthAfterPotion < 100){
+        if (healthAfterPotion < 100)
+        {
             characterHealth = healthAfterPotion;
-        }else{
+        }
+        else
+        {
             characterHealth = 100;
         }
 
         healthBar.SetHealth(characterHealth);
     }
 
-    public int getCurrentHealth(){
+    public int getCurrentHealth()
+    {
         return characterHealth;
     }
 
-    public void SetPlayerHealth(int health){
+    public void SetPlayerHealth(int health)
+    {
         characterHealth = health;
         healthBar.SetHealth(characterHealth);
     }
