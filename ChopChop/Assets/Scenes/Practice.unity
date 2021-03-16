@@ -680,7 +680,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179252369}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1576852965}
@@ -2959,6 +2959,8 @@ MonoBehaviour:
   health: {fileID: 0}
   player: {fileID: 0}
   powerPotionButton: {fileID: 193088686}
+  weaponCollision: {fileID: 0}
+  boughtPowerPotion: 0
 --- !u!224 &1624588580
 RectTransform:
   m_ObjectHideFlags: 0
