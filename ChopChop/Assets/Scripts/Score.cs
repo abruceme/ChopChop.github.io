@@ -11,15 +11,18 @@ namespace scoring
 
         public Text scoreText;
         public Text goldText;
+        public Text enemyKilledText;
         private static int totalPoints;
         private static int totalGold;
         private static int waveNum;
+        private static int enemyKiled;
 
         // Start is called before the first frame update
         void Start()
         {
             totalPoints = 0;
             totalGold = 0;
+            enemyKiled = 0;
             waveNum = 1;
         }
 
@@ -28,6 +31,7 @@ namespace scoring
         {
             scoreText.text = "<color=#0D3CD7>" + totalPoints.ToString() + "</color>";
             goldText.text = "<color=#D79F0D>" + totalGold.ToString() + "</color>";
+            enemyKilledText.text = "<color=#1B1B1B>" + enemyKiled.ToString() + "</color>";
         }
 
         public static void addScore(int gold, int points)
@@ -58,6 +62,21 @@ namespace scoring
         public static void setWave(int wave)
         {
             waveNum = wave;
+        }
+
+        public static int getWave()
+        {
+            return waveNum;
+        }
+
+        public static void addEnemyKilled()
+        {
+            enemyKiled += 1;
+        }
+
+        public static int getEnemyKilled()
+        {
+            return enemyKiled;
         }
     }
 }
