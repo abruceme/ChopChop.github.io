@@ -16,6 +16,8 @@ public class ChopChopAnalytics : MonoBehaviour
     private int rightAttack = 0;
     private int upAttack = 0;
     private int stealweapon = 0;
+    private int boost1 = 0;
+    private int boost2 = 0;
     private string currentTime;
     [HideInInspector]
     public enum functiontype
@@ -30,7 +32,9 @@ public class ChopChopAnalytics : MonoBehaviour
         rightAttack,
         upAttack,
         currenttime,
-        stealweapon
+        stealweapon,
+        boost1,
+        boost2
     }
 
     public void IncrementEnemyDamaged()
@@ -101,7 +105,17 @@ public class ChopChopAnalytics : MonoBehaviour
     }
     public void IncrementSteal()
     {
-    	stealweapon++;
+        stealweapon++;
+    }
+
+    public void IncrementBoost1()
+    {
+        boost1++;
+    }
+
+    public void IncrementBoost2()
+    {
+        boost2++;
     }
 
     public static void RunAnalytics(ChopChopAnalytics chop, functiontype func, string weaponname = null)
@@ -136,6 +150,12 @@ public class ChopChopAnalytics : MonoBehaviour
                     break;
                 case functiontype.stealweapon:
                     chop.IncrementSteal();
+                    break;
+                case functiontype.boost1:
+                    chop.IncrementBoost1();
+                    break;
+                case functiontype.boost2:
+                    chop.IncrementBoost2();
                     break;
             }
         }

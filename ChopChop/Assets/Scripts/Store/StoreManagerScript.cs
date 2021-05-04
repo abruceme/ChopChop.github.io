@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using scoring;
+using UnityEngine.Analytics;
 public class StoreManagerScript : MonoBehaviour
 {
     public int[,] storeItems = new int[3, 3];
@@ -21,6 +22,8 @@ public class StoreManagerScript : MonoBehaviour
 
     public bool boughtPowerPotion = false;
 
+    private ChopChopAnalytics chopAnalytics;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,12 @@ public class StoreManagerScript : MonoBehaviour
         //item price
         storeItems[2, 1] = 30;      //health potion price
         storeItems[2, 2] = 50;      //add attack boost price
+
+        GameObject go = GameObject.Find("ChopChopAnalytics");
+        if (go != null)
+        {
+            chopAnalytics = go.GetComponent<ChopChopAnalytics>();
+        }
 
     }
 
@@ -61,14 +70,18 @@ public class StoreManagerScript : MonoBehaviour
             if(boostID == 1){
                 health.addHealth(healthPotionval);
                 Debug.Log("Health After Drinking Potion------------  " + health.getCurrentHealth());
+
+                ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.boost1);
             }else if(boostID == 2){
                 // if(!boughtPowerPotion){
-                    boughtPowerPotion = true;
-                    player.addAttack();
-                    // Debug.Log("Current Left Arm Attack value ------------  " + GameObject.Find("mixamorig:LeftArm").GetComponent<WeaponCollision>().getFirstDamage());
-                    // Debug.Log("Current Right Arm Attack value ------------  " + GameObject.Find("mixamorig:RightArm").GetComponent<WeaponCollision>().getFirstDamage());
-                    Debug.Log("Bought Power Potion------------  ");        
-                    powerPotionButton.GetComponent<Button>().interactable = false;
+                boughtPowerPotion = true;
+                player.addAttack();
+                // Debug.Log("Current Left Arm Attack value ------------  " + GameObject.Find("mixamorig:LeftArm").GetComponent<WeaponCollision>().getFirstDamage());
+                // Debug.Log("Current Right Arm Attack value ------------  " + GameObject.Find("mixamorig:RightArm").GetComponent<WeaponCollision>().getFirstDamage());
+                Debug.Log("Bought Power Potion------------  ");        
+                powerPotionButton.GetComponent<Button>().interactable = false;
+
+                ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.boost2);
                 // }
                 // else{
                 //     boughtPowerPotion = false;
