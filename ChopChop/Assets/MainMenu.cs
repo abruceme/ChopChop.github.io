@@ -16,6 +16,11 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadSceneAsync("Practice");
     }
+    
+    public void TutorialGame()
+    {
+        SceneManager.LoadSceneAsync("Tutorial");
+    }
 
     public  void QuitGame()
     {

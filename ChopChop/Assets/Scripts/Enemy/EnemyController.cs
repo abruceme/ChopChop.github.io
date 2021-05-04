@@ -19,9 +19,16 @@ public class EnemyController : GameCharacterController
     public GameObject enemyHealthObject;
     public void PerformMove()
     {
-        gameObject.GetComponentInParent<EnemyAI>().PerformMove();
+        if (gameObject.transform.parent.name.Contains("TutorialEnemy"))
+        {
+            gameObject.GetComponentInParent<TutorialEnemyAI>().PerformMove();
+        }
+        else
+        {
+            gameObject.GetComponentInParent<EnemyAI>().PerformMove();
+        }
     }
-    public void SetAttackSpeed(float speed=.6f)
+    public void SetAttackSpeed(float speed = .6f)
     {
         animator.SetFloat("AttackSpeed", speed);
     }

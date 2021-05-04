@@ -48,6 +48,16 @@ public class Health : MonoBehaviour
             characterHealth -= damage;
             healthBar.SetHealth(characterHealth);
         }
+        else
+        {
+            if (gameCharacter.parent.name.Contains("TutorialEnemy"))
+            {
+                if(gameCharacter.GetComponentInParent<TutorialEnemyAI>().curTutState == TutorialEnemyAI.TutorialStates.ATTACK)
+                {
+                    gameCharacter.GetComponentInParent<TutorialEnemyAI>().IncCurTutorialState();
+                }
+            }
+        }
     }
 
     //add health after buying the health potion

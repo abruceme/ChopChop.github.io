@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class EnemyAI : MonoBehaviour
 {
     public float totalTime = 2f;
-    private float startTime;
+    protected float startTime;
 
     //public int health;
 

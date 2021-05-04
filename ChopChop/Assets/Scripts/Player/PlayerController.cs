@@ -13,7 +13,9 @@ public class PlayerController : GameCharacterController
     private bool keyHeld = false;
     private KeyCode keyPressed = KeyCode.None;
     private bool canBlock = true;
-    
+    [HideInInspector]
+    public TutorialEnemyAI tutorialEnemy = null;
+
     private ChopChopAnalytics chopAnalytics;
 
 
@@ -30,7 +32,8 @@ public class PlayerController : GameCharacterController
     }
 
     //for drinking powerpotion
-    public void addAttack(){
+    public void addAttack()
+    {
         SetPlayerWeapon();
     }
 
@@ -82,7 +85,7 @@ public class PlayerController : GameCharacterController
             else
             {
                 Attack();
-                
+
             }
             keyPressed = SetKey();
         }

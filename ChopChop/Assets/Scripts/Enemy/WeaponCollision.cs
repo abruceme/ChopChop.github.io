@@ -65,6 +65,13 @@ public class WeaponCollision : MonoBehaviour
             {
                 //Debug.Log(defenderCharacter + " parry! Move: " + attackerMove);
                 Parry(attackerAnimator.gameObject.GetComponent<EnemyController>());
+                if (attackerAnimator.transform.parent.name.Contains("TutorialEnemy"))
+                {
+                    if(attackerAnimator.GetComponentInParent<TutorialEnemyAI>().curTutState == TutorialEnemyAI.TutorialStates.STEAL)
+                    {
+                        attackerAnimator.GetComponentInParent<TutorialEnemyAI>().IncCurTutorialState();
+                    }
+                }
                 Score.addScore(3, 10);
                 //steal analytics here
                 ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.stealweapon);
@@ -84,7 +91,13 @@ public class WeaponCollision : MonoBehaviour
                     DamageWeapon();
                     Score.addScore(0, 6);
                     ChopChopAnalytics.RunAnalytics(chopAnalytics, ChopChopAnalytics.functiontype.attackBlocked);
-
+                    if (attackerAnimator.transform.parent.name.Contains("TutorialEnemy"))
+                    {
+                        if (attackerAnimator.GetComponentInParent<TutorialEnemyAI>().curTutState == TutorialEnemyAI.TutorialStates.BLOCK)
+                        {
+                            attackerAnimator.GetComponentInParent<TutorialEnemyAI>().IncCurTutorialState();
+                        }
+                    }
                 }
                 if (defenderCharacter == "Enemy"
                     && IsSlashMove(attackerMove))
